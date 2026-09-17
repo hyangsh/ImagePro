@@ -15,6 +15,7 @@ protected: // serialization에서만 만들어집니다.
 public:
 	CImageProHwangSeungHyeokDoc* GetDocument() const;
 	int drawHist = false;
+	int viewMode;
 // 작업입니다.
 public:
 
@@ -54,6 +55,15 @@ public:
 	afx_msg void OnPixelContrastStretching();
 	afx_msg void OnDrawHistogramOnoff();
 	afx_msg void OnPixelBinarization();
+	afx_msg void OnPixelBinarizationAutoThresh();
+	afx_msg void OnPixelBinarizationAdaptiveThresh();
+	afx_msg void OnPixelBinarizationHRange();
+	afx_msg void OnPixelInvert();
+	afx_msg void OnPixelQuantization();
+	afx_msg void OnPixelRangeHighlighting();
+	afx_msg void OnPixelGammaCorrection();
+	afx_msg void OnPixelTwoImagesAdd();
+	afx_msg void OnPixelTwoImagesAddLogo();
 };
 
 #ifndef _DEBUG  // ImagePro_HwangSeungHyeokView.cpp의 디버그 버전

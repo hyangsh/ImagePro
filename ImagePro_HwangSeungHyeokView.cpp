@@ -9,6 +9,8 @@
 #ifndef SHARED_HANDLERS
 #include "ImagePro_HwangSeungHyeok.h"
 #endif
+#define TWO_IMAGES      1 
+#define THREE_IMAGES    2 
 
 #include "ImagePro_HwangSeungHyeokDoc.h"
 #include "ImagePro_HwangSeungHyeokView.h"
@@ -37,6 +39,15 @@ BEGIN_MESSAGE_MAP(CImageProHwangSeungHyeokView, CScrollView)
 	ON_COMMAND(ID_PIXEL_CONTRAST_STRETCHING, &CImageProHwangSeungHyeokView::OnPixelContrastStretching)
 	ON_COMMAND(ID_DRAW_HISTOGRAM_ONOFF, &CImageProHwangSeungHyeokView::OnDrawHistogramOnoff)
 	ON_COMMAND(ID_PIXEL_BINARIZATION, &CImageProHwangSeungHyeokView::OnPixelBinarization)
+	ON_COMMAND(ID_PIXEL_BINARIZATION_AUTO_THRESH, &CImageProHwangSeungHyeokView::OnPixelBinarizationAutoThresh)
+	ON_COMMAND(ID_PIXEL_BINARIZATION_ADAPTIVE_THRESH, &CImageProHwangSeungHyeokView::OnPixelBinarizationAdaptiveThresh)
+	ON_COMMAND(ID_PIXEL_BINARIZATION_H_RANGE, &CImageProHwangSeungHyeokView::OnPixelBinarizationHRange)
+	ON_COMMAND(ID_PIXEL_INVERT, &CImageProHwangSeungHyeokView::OnPixelInvert)
+	ON_COMMAND(ID_PIXEL_QUANTIZATION, &CImageProHwangSeungHyeokView::OnPixelQuantization)
+	ON_COMMAND(ID_PIXEL_RANGE_HIGHLIGHTING, &CImageProHwangSeungHyeokView::OnPixelRangeHighlighting)
+	ON_COMMAND(ID_PIXEL_GAMMA_CORRECTION, &CImageProHwangSeungHyeokView::OnPixelGammaCorrection)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_ADD, &CImageProHwangSeungHyeokView::OnPixelTwoImagesAdd)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_ADD_LOGO, &CImageProHwangSeungHyeokView::OnPixelTwoImagesAddLogo)
 END_MESSAGE_MAP()
 
 // CImageProHwangSeungHyeokView 생성/소멸
@@ -65,10 +76,14 @@ void CImageProHwangSeungHyeokView::OnDraw(CDC* pDC)
 {
 	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
+	drawImage(pDC, pDoc->inputImg, 0, 0);
+	if (viewMode == THREE_IMAGES) {
+		drawImage(pDC, pDoc->inputImg2, pDoc->inputImg.cols + 30, 0);
+		drawImage(pDC, pDoc->resultImg, pDoc->inputImg.cols + pDoc->inputImg2.cols + 60, 0);
+	}
+	else if (viewMode == TWO_IMAGES)
+		drawImage(pDC, pDoc->resultImg, pDoc->inputImg.cols + 30, 0);
 
-	if (!pDoc) return;
-    drawImage(pDC, pDoc->inputImg, 0, 0);
-	drawImage(pDC, pDoc->resultImg, pDoc->inputImg.cols + 30, 0);
 
 }
 
@@ -153,6 +168,7 @@ void CImageProHwangSeungHyeokView::OnPixelAdd()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelAdd();
+	viewMode = TWO_IMAGES;
 
 	Invalidate(TRUE);
 
@@ -272,4 +288,97 @@ void CImageProHwangSeungHyeokView::OnPixelBinarization()
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelBinarization();
 	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelBinarizationAutoThresh()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelBinarizationAutoThresh();
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelBinarizationAdaptiveThresh()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelBinarizationAdaptiveThresh();
+	Invalidate(TRUE);      //화면 갱신.   
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelBinarizationHRange()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelBinarizationHRange();
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelInvert()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelInvert();  // CImageProDoc 클래스의 PixelInvert() 호출 
+	Invalidate(TRUE);      //화면 갱신.   
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelQuantization()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelQuantization();
+	Invalidate(TRUE);      //화면 갱신.   
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelRangeHighlighting()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelRangeHighligthing();
+	Invalidate(TRUE);      //화면 갱신.   
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelGammaCorrection()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->PixelGammaCorrection();
+	Invalidate(TRUE);      //화면 갱신.   
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesAdd()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesAdd();
+	viewMode = THREE_IMAGES;
+
+	Invalidate(TRUE);
+	
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesAddLogo()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesAddLogo();
+	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
+
 }

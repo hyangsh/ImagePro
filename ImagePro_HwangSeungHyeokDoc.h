@@ -18,7 +18,8 @@ protected: // serialization에서만 만들어집니다.
 
 // 특성입니다.
 public:
-	Mat inputImg;    // 입력 영상을 위한 공간
+	Mat inputImg;  
+	Mat inputImg2;// 입력 영상을 위한 공간
 	Mat resultImg;   // 영상 처리 결과 저장을 위한 공간
 // 작업입니다.
 public:
@@ -59,4 +60,15 @@ public:
 	void PixelContrastStretching();
 	void drawHist();
 	void PixelBinarization();
+	int PixelBinarizationAutoTresh();
+	void PixelBinarizationAdaptiveThresh();
+	void PixelBinarizationAutoThresh();
+	void PixelBinarizationHRange();
+	void PixelInvert();
+	void PixelQuantization();
+	void PixelRangeHighligthing();
+	void PixelGammaCorrection();
+	void PixelTwoImagesAdd();
+	void LoadTwoImages();
+	void PixelTwoImagesAddLogo();
 };

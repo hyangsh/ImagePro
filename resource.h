@@ -48,13 +48,32 @@
 #define ID_32786                        32786
 #define ID_32787                        32787
 #define ID_PIXEL_BINARIZATION           32788
+#define ID_32789                        32789
+#define ID_PIXEL_BINARIZATION_AUTO_THRESH 32790
+#define ID_32791                        32791
+#define ID_Menu                         32792
+#define ID_PIXEL_BINARIZATION_ADAPTIVE_THRESH 32793
+#define ID_32794                        32794
+#define ID_PIXEL_BINARIZATION_H_RANGE   32795
+#define ID_32796                        32796
+#define ID_PIXEL_INVERT                 32797
+#define ID_32798                        32798
+#define ID_PIXEL_QUANTIZATION           32799
+#define ID_32800                        32800
+#define ID_PIXEL_RANGE_HIGHLIGHTING     32801
+#define ID_32802                        32802
+#define ID_PIXEL_GAMMA_CORRECTION       32803
+#define ID_32804                        32804
+#define ID_PIXEL_TWO_IMAGES_ADD         32805
+#define ID_32806                        32806
+#define ID_PIXEL_TWO_IMAGES_ADD_LOGO    32807
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_COMMAND_VALUE         32808
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
