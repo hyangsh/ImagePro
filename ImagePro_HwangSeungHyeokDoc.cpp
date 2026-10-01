@@ -311,3 +311,196 @@ void CImageProHwangSeungHyeokDoc::PixelTwoImagesAddLogo()
 	dst.copyTo(resultImg(Rect(0, 0, inputImg2.cols, inputImg2.rows)));
 
 }
+
+void CImageProHwangSeungHyeokDoc::MorphologyErosion()
+{
+	erode(inputImg, resultImg, Mat());
+
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyDilation()
+{
+	dilate(inputImg, resultImg, Mat());
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyOpening()
+{
+	Mat tmp;
+	erode(inputImg, tmp, Mat());
+	erode(tmp, tmp, Mat());
+	erode(tmp, tmp, Mat());
+	dilate(tmp, tmp, Mat());
+	dilate(tmp, tmp, Mat());
+	dilate(tmp, resultImg, Mat());
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyClosing()
+{
+	Mat tmp;
+	dilate(inputImg, tmp, Mat());
+	dilate(tmp, tmp, Mat());
+	dilate(tmp, tmp, Mat());
+	erode(tmp, tmp, Mat());
+	erode(tmp, tmp, Mat());
+	erode(tmp, resultImg, Mat());
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyGradient()
+{
+	morphologyEx(inputImg, resultImg, MORPH_GRADIENT, Mat());
+
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyTopHat()
+{
+	morphologyEx(inputImg, resultImg, MORPH_TOPHAT, Mat());
+}
+
+
+void CImageProHwangSeungHyeokDoc::MorphologyBlackHat()
+{
+	morphologyEx(inputImg, resultImg, MORPH_BLACKHAT, Mat());
+	
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyHitOrMiss()
+{
+	Mat out_imgs[4];
+
+	int data1[25] = { 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0 };
+	int data2[25] = { 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0 };
+	int data3[25] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int data4[25] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	Mat top(5, 5, CV_32SC1, data1);
+	Mat bottom(5, 5, CV_32SC1, data2);
+	Mat left(5, 5, CV_32SC1, data3);
+	Mat right(5, 5, CV_32SC1, data4);
+	morphologyEx(inputImg, out_imgs[0], MORPH_HITMISS, top);
+	morphologyEx(inputImg, out_imgs[1], MORPH_HITMISS, bottom);
+	morphologyEx(inputImg, out_imgs[2], MORPH_HITMISS, left);
+	morphologyEx(inputImg, out_imgs[3], MORPH_HITMISS, right);
+	resultImg = out_imgs[0] + out_imgs[1] + out_imgs[2] + out_imgs[3];
+
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyLineDetection()
+{
+	Mat gray, bw;
+	gray = inputImg;
+	if (gray.channels() > 1) cvtColor(gray, gray, COLOR_BGR2GRAY);
+
+	bitwise_not(gray, gray);  // 배경이 0인 영상으로 변환
+	threshold(gray, bw, 0, 255, THRESH_OTSU); // 이진 영상으로 변환
+	Mat horizontal = bw.clone();
+	Mat vertical = bw.clone();
+	Mat horizontalStructure = getStructuringElement(MORPH_RECT, Size(17, 1));
+	erode(horizontal, horizontal, horizontalStructure);
+	dilate(horizontal, horizontal, horizontalStructure);
+	bitwise_not(horizontal, horizontal);
+
+	Mat verticalStructure = getStructuringElement(MORPH_RECT, Size(1, 5));
+	erode(vertical, vertical, verticalStructure);
+	dilate(vertical, vertical, verticalStructure);
+	bitwise_not(vertical, vertical);
+	// 입력 영상의 높이의 2배가되는 출력 영상 생성
+	// 윗 부분에 수직선 검출 결과를 아랫 부분에 수평선 검출 결과를 저장
+	resultImg = Mat(Size(inputImg.cols, inputImg.rows * 2), vertical.type());
+	vertical.copyTo(resultImg(Rect(0, 0, inputImg.cols, inputImg.rows)));
+	horizontal.copyTo(resultImg(Rect(0, inputImg.rows, inputImg.cols, inputImg.rows)));
+
+}
+
+void CImageProHwangSeungHyeokDoc::MorphologyCountCell()
+{
+	resultImg = inputImg.clone();
+	if (resultImg.channels() > 1) cvtColor(resultImg, resultImg, COLOR_BGR2GRAY);
+	threshold(resultImg, resultImg, 128, 255, THRESH_BINARY);
+	bitwise_not(resultImg, resultImg);
+	erode(resultImg, resultImg, Mat());
+	erode(resultImg, resultImg, Mat());
+	erode(resultImg, resultImg, Mat());
+	dilate(resultImg, resultImg, Mat());
+	dilate(resultImg, resultImg, Mat());
+	dilate(resultImg, resultImg, Mat());
+	Mat labelImage(resultImg.size(), CV_32S);
+	int nLabels = connectedComponents(resultImg, labelImage);
+
+	CString buf;
+	buf.Format(L"셀의 개수 = %d", nLabels - 1);
+	AfxMessageBox(buf);
+}
+
+void CImageProHwangSeungHyeokDoc::RegionBlurring()
+{
+	blur(inputImg, resultImg, Size(5, 5));
+}
+
+void CImageProHwangSeungHyeokDoc::RegionSharpening()
+{
+	float data[9] = { 0, -1, 0, -1, 5, -1, 0, -1, 0 };
+	Mat kernel(3, 3, CV_32FC1, data);
+
+
+	filter2D(inputImg, resultImg, -1, kernel);
+}
+
+void CImageProHwangSeungHyeokDoc::RegionSobel()
+{
+	Mat grad_v, grad_h;
+	float arr1[9] = { 1, 0, -1, 2, 0, -2, 1, 0, -1 };
+	Mat kernel_v(3, 3, CV_32FC1, arr1);
+	float arr2[9] = { -1, -2, -1, 0, 0, 0, 1, 2, 1 };
+	Mat kernel_h(3, 3, CV_32FC1, arr2);
+	Mat img;
+	img = inputImg.clone();
+	if (img.channels() > 1) cvtColor(img, img, COLOR_BGR2GRAY);
+	filter2D(img, grad_v, CV_32FC1, kernel_v);
+	filter2D(img, grad_h, CV_32FC1, kernel_h);
+	magnitude(grad_v, grad_h, img); // img = sqrt(grad_v2 + grad_h2)
+	img.convertTo(resultImg, CV_8UC1); // 32비트 실수를 8비트 uchar로 변환
+
+}
+
+void CImageProHwangSeungHyeokDoc::RegionCanny()
+{
+	Mat img;
+	int lowThreshold = 50;
+	const int ratio = 3;
+	const int kernel_size = 3;
+	img = inputImg.clone();
+	if (img.channels() > 1) cvtColor(img, img, COLOR_BGR2GRAY);
+	blur(img, img, Size(3, 3));
+	Canny(img, resultImg, lowThreshold, lowThreshold * ratio, kernel_size);
+
+}
+
+void CImageProHwangSeungHyeokDoc::RegionEmbossing()
+{
+	float data[9] = { -1, 0, 0, 0, 0, 0, 0, 0, 1 };
+	Mat kernel(3, 3, CV_32FC1, data);
+
+	if (inputImg.channels() > 1) {
+		vector<Mat> channels;
+		Mat img;
+		cvtColor(inputImg, img, COLOR_BGR2HSV);
+		split(img, channels);
+		filter2D(channels[2], channels[2], -1, kernel, Point(-1, -1), 128);
+		merge(channels, img);
+		cvtColor(img, resultImg, COLOR_HSV2BGR);
+	}
+	else filter2D(inputImg, resultImg, -1, kernel, Point(-1, -1), 128);
+
+
+}
+
+void CImageProHwangSeungHyeokDoc::RegionWaterColor()
+{
+	Mat img1, img2;
+
+	img1 = inputImg.clone();
+	for (int i = 0; i < 20; i++)
+		if (i % 2 == 0) bilateralFilter(img1, img2, 7, 30, 3);
+		else bilateralFilter(img2, img1, 7, 30, 3);
+	resultImg = img1.clone();
+
+}

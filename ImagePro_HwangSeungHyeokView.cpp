@@ -48,6 +48,22 @@ BEGIN_MESSAGE_MAP(CImageProHwangSeungHyeokView, CScrollView)
 	ON_COMMAND(ID_PIXEL_GAMMA_CORRECTION, &CImageProHwangSeungHyeokView::OnPixelGammaCorrection)
 	ON_COMMAND(ID_PIXEL_TWO_IMAGES_ADD, &CImageProHwangSeungHyeokView::OnPixelTwoImagesAdd)
 	ON_COMMAND(ID_PIXEL_TWO_IMAGES_ADD_LOGO, &CImageProHwangSeungHyeokView::OnPixelTwoImagesAddLogo)
+	ON_COMMAND(ID_MORPHOLOGY_EROSION, &CImageProHwangSeungHyeokView::OnMorphologyErosion)
+	ON_COMMAND(ID_MORPHOLOGY_DILATION, &CImageProHwangSeungHyeokView::OnMorphologyDilation)
+	ON_COMMAND(ID_MORPHOLOGY_OPENING, &CImageProHwangSeungHyeokView::OnMorphologyOpening)
+	ON_COMMAND(ID_MORPHOLOGY_CLOSING, &CImageProHwangSeungHyeokView::OnMorphologyClosing)
+	ON_COMMAND(ID_MORPHOLOGY_GRADIENT, &CImageProHwangSeungHyeokView::OnMorphologyGradient)
+	ON_COMMAND(ID_MORPHOLOGY_TOP_HAT, &CImageProHwangSeungHyeokView::OnMorphologyTopHat)
+	ON_COMMAND(ID_MORPHOLOGY_BLACK_HAT, &CImageProHwangSeungHyeokView::OnMorphologyBlackHat)
+	ON_COMMAND(ID_MORPHOLOGY_HIT_OR_MISS, &CImageProHwangSeungHyeokView::OnMorphologyHitOrMiss)
+	ON_COMMAND(ID_MORPHOLOGY_LINE_DETECTION, &CImageProHwangSeungHyeokView::OnMorphologyLineDetection)
+	ON_COMMAND(ID_MORPHOLOGY_COUNT_CELL, &CImageProHwangSeungHyeokView::OnMorphologyCountCell)
+	ON_COMMAND(ID_REGION_BLURRING, &CImageProHwangSeungHyeokView::OnRegionBlurring)
+	ON_COMMAND(ID_REGION_SHARPENING, &CImageProHwangSeungHyeokView::OnRegionSharpening)
+	ON_COMMAND(ID_REGION_SOBEL, &CImageProHwangSeungHyeokView::OnRegionSobel)
+	ON_COMMAND(ID_REGION_CANNY, &CImageProHwangSeungHyeokView::OnRegionCanny)
+	ON_COMMAND(ID_REGION_EMBOSSING, &CImageProHwangSeungHyeokView::OnRegionEmbossing)
+	ON_COMMAND(ID_REGION_WATER_COLOR, &CImageProHwangSeungHyeokView::OnRegionWaterColor)
 END_MESSAGE_MAP()
 
 // CImageProHwangSeungHyeokView 생성/소멸
@@ -379,6 +395,177 @@ void CImageProHwangSeungHyeokView::OnPixelTwoImagesAddLogo()
 	ASSERT_VALID(pDoc);
 	pDoc->PixelTwoImagesAddLogo();
 	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyErosion()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyErosion();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyDilation()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyDilation();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyOpening()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyOpening();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyClosing()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyClosing();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyGradient()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyGradient();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyTopHat()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyTopHat();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyBlackHat()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyBlackHat();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyHitOrMiss()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyHitOrMiss();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyLineDetection()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyLineDetection();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnMorphologyCountCell()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MorphologyCountCell();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnRegionBlurring()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionBlurring();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnRegionSharpening()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionSharpening();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnRegionSobel()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionSobel();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnRegionCanny()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionCanny();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+	
+}
+
+void CImageProHwangSeungHyeokView::OnRegionEmbossing()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionEmbossing();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnRegionWaterColor()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionWaterColor();
+	viewMode = TWO_IMAGES;
 	Invalidate(TRUE);
 
 }

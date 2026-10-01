@@ -64,6 +64,22 @@ public:
 	afx_msg void OnPixelGammaCorrection();
 	afx_msg void OnPixelTwoImagesAdd();
 	afx_msg void OnPixelTwoImagesAddLogo();
+	afx_msg void OnMorphologyErosion();
+	afx_msg void OnMorphologyDilation();
+	afx_msg void OnMorphologyOpening();
+	afx_msg void OnMorphologyClosing();
+	afx_msg void OnMorphologyGradient();
+	afx_msg void OnMorphologyTopHat();
+	afx_msg void OnMorphologyBlackHat();
+	afx_msg void OnMorphologyHitOrMiss();
+	afx_msg void OnMorphologyLineDetection();
+	afx_msg void OnMorphologyCountCell();
+	afx_msg void OnRegionBlurring();
+	afx_msg void OnRegionSharpening();
+	afx_msg void OnRegionSobel();
+	afx_msg void OnRegionCanny();
+	afx_msg void OnRegionEmbossing();
+	afx_msg void OnRegionWaterColor();
 };
 
 #ifndef _DEBUG  // ImagePro_HwangSeungHyeokView.cpp의 디버그 버전

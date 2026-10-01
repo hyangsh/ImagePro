@@ -67,13 +67,37 @@
 #define ID_PIXEL_TWO_IMAGES_ADD         32805
 #define ID_32806                        32806
 #define ID_PIXEL_TWO_IMAGES_ADD_LOGO    32807
+#define ID_MORPHOLOGY_EROSION           32808
+#define ID_MORPHOLOGY_DILATION          32809
+#define ID_32810                        32810
+#define ID_MORPHOLOGY_OPENING           32811
+#define ID_32812                        32812
+#define ID_MORPHOLOGY_CLOSING           32813
+#define ID_32814                        32814
+#define ID_MORPHOLOGY_GRADIENT          32815
+#define ID_32816                        32816
+#define ID_MORPHOLOGY_TOP_HAT           32817
+#define ID_32818                        32818
+#define ID_MORPHOLOGY_BLACK_HAT         32819
+#define ID_32820                        32820
+#define ID_MORPHOLOGY_HIT_OR_MISS       32821
+#define ID_32822                        32822
+#define ID_MORPHOLOGY_LINE_DETECTION    32823
+#define ID_MORPHOLOGY_COUNT_CELL        32824
+#define ID_32825                        32825
+#define ID_REGION_BLURRING              32826
+#define ID_REGION_SHARPENING            32827
+#define ID_REGION_SOBEL                 32828
+#define ID_REGION_CANNY                 32829
+#define ID_REGION_EMBOSSING             32830
+#define ID_REGION_WATER_COLOR           32831
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32808
+#define _APS_NEXT_COMMAND_VALUE         32832
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
