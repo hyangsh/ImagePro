@@ -80,6 +80,16 @@ public:
 	afx_msg void OnRegionCanny();
 	afx_msg void OnRegionEmbossing();
 	afx_msg void OnRegionWaterColor();
+	afx_msg void OnGaussianBlurring();
+	afx_msg void OnMedianBlurring();
+	afx_msg void OnBilateralBlurring();
+	afx_msg void OnRegionPrewitt();
+	afx_msg void OnRegionRoberts();
+	afx_msg void OnRegionLaprasian();
+	afx_msg void OnPixelTwoImagesSub();
+	afx_msg void OnPixelTwoImagesAnd();
+	afx_msg void OnPixelTwoImagesOr();
+	afx_msg void OnPixelTwoImagesXor();
 };
 
 #ifndef _DEBUG  // ImagePro_HwangSeungHyeokView.cpp의 디버그 버전

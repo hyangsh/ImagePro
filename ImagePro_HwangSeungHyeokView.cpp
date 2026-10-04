@@ -64,6 +64,16 @@ BEGIN_MESSAGE_MAP(CImageProHwangSeungHyeokView, CScrollView)
 	ON_COMMAND(ID_REGION_CANNY, &CImageProHwangSeungHyeokView::OnRegionCanny)
 	ON_COMMAND(ID_REGION_EMBOSSING, &CImageProHwangSeungHyeokView::OnRegionEmbossing)
 	ON_COMMAND(ID_REGION_WATER_COLOR, &CImageProHwangSeungHyeokView::OnRegionWaterColor)
+	ON_COMMAND(ID_GAUSSIAN_BLURRING, &CImageProHwangSeungHyeokView::OnGaussianBlurring)
+	ON_COMMAND(ID_MEDIAN_BLURRING, &CImageProHwangSeungHyeokView::OnMedianBlurring)
+	ON_COMMAND(ID_BILATERAL_BLURRING, &CImageProHwangSeungHyeokView::OnBilateralBlurring)
+	ON_COMMAND(ID_REGION_PREWITT, &CImageProHwangSeungHyeokView::OnRegionPrewitt)
+	ON_COMMAND(ID_REGION_ROBERTS, &CImageProHwangSeungHyeokView::OnRegionRoberts)
+	ON_COMMAND(ID_REGION_LAPRASIAN, &CImageProHwangSeungHyeokView::OnRegionLaprasian)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_SUB, &CImageProHwangSeungHyeokView::OnPixelTwoImagesSub)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_AND, &CImageProHwangSeungHyeokView::OnPixelTwoImagesAnd)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_OR, &CImageProHwangSeungHyeokView::OnPixelTwoImagesOr)
+	ON_COMMAND(ID_PIXEL_TWO_IMAGES_XOR, &CImageProHwangSeungHyeokView::OnPixelTwoImagesXor)
 END_MESSAGE_MAP()
 
 // CImageProHwangSeungHyeokView 생성/소멸
@@ -186,6 +196,7 @@ void CImageProHwangSeungHyeokView::OnPixelAdd()
 	pDoc->PixelAdd();
 	viewMode = TWO_IMAGES;
 
+
 	Invalidate(TRUE);
 
 }
@@ -240,6 +251,7 @@ void CImageProHwangSeungHyeokView::OnPixelSub()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelSub();
+	viewMode = TWO_IMAGES;
 
 	Invalidate(TRUE);
 
@@ -253,6 +265,7 @@ void CImageProHwangSeungHyeokView::OnPixelMul()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelMUL();
+	viewMode = TWO_IMAGES;
 
 	Invalidate(TRUE);
 }
@@ -264,6 +277,7 @@ void CImageProHwangSeungHyeokView::OnPixelDiv()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelDiv();
+	viewMode = TWO_IMAGES;
 
 	Invalidate(TRUE);
 }
@@ -272,6 +286,7 @@ void CImageProHwangSeungHyeokView::OnPixelHistoEq()
 {
 	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
+	viewMode = TWO_IMAGES;
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelHistoEq();  // CImageProDoc 클래스의 PixelHistoEq() 호출 
@@ -282,6 +297,7 @@ void CImageProHwangSeungHyeokView::OnPixelContrastStretching()
 {
 	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
+	viewMode = TWO_IMAGES;
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelContrastStretching();
@@ -293,6 +309,8 @@ void CImageProHwangSeungHyeokView::OnDrawHistogramOnoff()
 {
 	if (drawHist == false) drawHist = true;
 	else drawHist = false;
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);
 
 }
@@ -303,6 +321,8 @@ void CImageProHwangSeungHyeokView::OnPixelBinarization()
 	ASSERT_VALID(pDoc);
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelBinarization();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);
 }
 
@@ -312,6 +332,8 @@ void CImageProHwangSeungHyeokView::OnPixelBinarizationAutoThresh()
 	ASSERT_VALID(pDoc);
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelBinarizationAutoThresh();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);
 }
 
@@ -321,6 +343,8 @@ void CImageProHwangSeungHyeokView::OnPixelBinarizationAdaptiveThresh()
 	ASSERT_VALID(pDoc);
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelBinarizationAdaptiveThresh();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);      //화면 갱신.   
 
 }
@@ -331,6 +355,8 @@ void CImageProHwangSeungHyeokView::OnPixelBinarizationHRange()
 	ASSERT_VALID(pDoc);
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelBinarizationHRange();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);
 }
 
@@ -338,6 +364,7 @@ void CImageProHwangSeungHyeokView::OnPixelInvert()
 {
 	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
+	viewMode = TWO_IMAGES;
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelInvert();  // CImageProDoc 클래스의 PixelInvert() 호출 
@@ -352,6 +379,8 @@ void CImageProHwangSeungHyeokView::OnPixelQuantization()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelQuantization();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);      //화면 갱신.   
 
 }
@@ -363,6 +392,8 @@ void CImageProHwangSeungHyeokView::OnPixelRangeHighlighting()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelRangeHighligthing();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);      //화면 갱신.   
 
 }
@@ -374,6 +405,8 @@ void CImageProHwangSeungHyeokView::OnPixelGammaCorrection()
 
 	if (pDoc->inputImg.empty()) return;
 	pDoc->PixelGammaCorrection();
+	viewMode = TWO_IMAGES;
+
 	Invalidate(TRUE);      //화면 갱신.   
 
 }
@@ -568,4 +601,107 @@ void CImageProHwangSeungHyeokView::OnRegionWaterColor()
 	viewMode = TWO_IMAGES;
 	Invalidate(TRUE);
 
+}
+
+void CImageProHwangSeungHyeokView::OnGaussianBlurring()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->GaussianBlurring();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+	
+}
+
+void CImageProHwangSeungHyeokView::OnMedianBlurring()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->MedianBlurring();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnBilateralBlurring()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	if (pDoc->inputImg.empty()) return;
+	pDoc->BilateralBlurring();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnRegionPrewitt()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionPrewitt();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnRegionRoberts()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionBoberts();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnRegionLaprasian()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (pDoc->inputImg.empty()) return;
+	pDoc->RegionLaprasian();
+	viewMode = TWO_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesSub()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesSub();
+	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
+
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesAnd()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesAnd();
+	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesOr()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesOR();
+	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
+}
+
+void CImageProHwangSeungHyeokView::OnPixelTwoImagesXor()
+{
+	CImageProHwangSeungHyeokDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	pDoc->PixelTwoImagesXOR();
+	viewMode = THREE_IMAGES;
+	Invalidate(TRUE);
 }

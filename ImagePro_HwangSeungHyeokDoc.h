@@ -87,4 +87,14 @@ public:
 	void RegionCanny();
 	void RegionEmbossing();
 	void RegionWaterColor();
+	void GaussianBlurring();
+	void MedianBlurring();
+	void BilateralBlurring();
+	void RegionPrewitt();
+	void RegionBoberts();
+	void RegionLaprasian();
+	void PixelTwoImagesSub();
+	void PixelTwoImagesAnd();
+	void PixelTwoImagesOR();
+	void PixelTwoImagesXOR();
 };

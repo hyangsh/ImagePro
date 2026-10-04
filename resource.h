@@ -91,13 +91,33 @@
 #define ID_REGION_CANNY                 32829
 #define ID_REGION_EMBOSSING             32830
 #define ID_REGION_WATER_COLOR           32831
+#define ID_32832                        32832
+#define ID_32833                        32833
+#define ID_32834                        32834
+#define ID_GAUSSIAN_BLURRING            32835
+#define ID_MEDIAN_BLURRING              32836
+#define ID_BILATERAL_BLURRING           32837
+#define ID_32838                        32838
+#define ID_32839                        32839
+#define ID_32840                        32840
+#define ID_REGION_PREWITT               32841
+#define ID_REGION_ROBERTS               32842
+#define ID_REGION_LAPRASIAN             32843
+#define ID_32844                        32844
+#define ID_PIXEL_TWO_IMAGES_SUB         32845
+#define ID_32846                        32846
+#define ID_32847                        32847
+#define ID_32848                        32848
+#define ID_PIXEL_TWO_IMAGES_AND         32849
+#define ID_PIXEL_TWO_IMAGES_OR          32850
+#define ID_PIXEL_TWO_IMAGES_XOR         32851
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32832
+#define _APS_NEXT_COMMAND_VALUE         32852
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

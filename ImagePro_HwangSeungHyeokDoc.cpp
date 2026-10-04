@@ -504,3 +504,102 @@ void CImageProHwangSeungHyeokDoc::RegionWaterColor()
 	resultImg = img1.clone();
 
 }
+
+void CImageProHwangSeungHyeokDoc::GaussianBlurring()
+{
+	GaussianBlur(inputImg, resultImg, Size(5, 5), 0);
+}
+
+void CImageProHwangSeungHyeokDoc::MedianBlurring()
+{
+	medianBlur(inputImg, resultImg, 5);
+}
+
+void CImageProHwangSeungHyeokDoc::BilateralBlurring()
+{
+	bilateralFilter(inputImg, resultImg, -1, 50, 50);
+}
+
+void CImageProHwangSeungHyeokDoc::RegionPrewitt()
+{
+	Mat img;
+	img = inputImg.clone(); 
+	if (img.channels() > 1) cvtColor(img, img, COLOR_BGR2GRAY); 
+	blur(img, img, Size(3, 3)); 
+
+	float prewitt_x[] = { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
+	float prewitt_y[] = { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
+
+	Mat kernel_x = Mat(3, 3, CV_32F, prewitt_x);
+	Mat kernel_y = Mat(3, 3, CV_32F, prewitt_y);
+
+	Mat grad_x, grad_y;
+	filter2D(img, grad_x, CV_16S, kernel_x);
+	filter2D(img, grad_y, CV_16S, kernel_y);
+
+	convertScaleAbs(grad_x, grad_x);
+	convertScaleAbs(grad_y, grad_y);
+
+	addWeighted(grad_x, 0.5, grad_y, 0.5, 0, resultImg);
+}
+
+void CImageProHwangSeungHyeokDoc::RegionBoberts()
+{
+	Mat img;
+	img = inputImg.clone(); 
+	if (img.channels() > 1) cvtColor(img, img, COLOR_BGR2GRAY); 
+	blur(img, img, Size(3, 3));  
+	float roberts_x[] = { 1, 0, 0, -1 };
+	float roberts_y[] = { 0, 1, -1, 0 };
+	Mat kernel_x = Mat(2, 2, CV_32F, roberts_x);
+	Mat kernel_y = Mat(2, 2, CV_32F, roberts_y);
+
+	Mat grad_x, grad_y;
+	filter2D(img, grad_x, CV_16S, kernel_x);
+	filter2D(img, grad_y, CV_16S, kernel_y);
+
+	convertScaleAbs(grad_x, grad_x);
+	convertScaleAbs(grad_y, grad_y);
+
+	addWeighted(grad_x, 0.5, grad_y, 0.5, 0, resultImg);
+}
+
+void CImageProHwangSeungHyeokDoc::RegionLaprasian()
+{
+	Mat img;
+	const int kernel_size = 3;  
+	img = inputImg.clone(); 
+	if (img.channels() > 1) cvtColor(img, img, COLOR_BGR2GRAY); 
+	blur(img, img, Size(3, 3));  
+
+	Mat img_laplacian;
+	 
+	Laplacian(img, img_laplacian, CV_16S, kernel_size);
+ 
+	convertScaleAbs(img_laplacian, resultImg);
+}
+
+void CImageProHwangSeungHyeokDoc::PixelTwoImagesSub()
+{
+	LoadTwoImages();
+	subtract(inputImg, inputImg2, resultImg);
+
+}
+
+void CImageProHwangSeungHyeokDoc::PixelTwoImagesAnd()
+{
+	LoadTwoImages();
+	bitwise_and(inputImg, inputImg2, resultImg);
+}
+
+void CImageProHwangSeungHyeokDoc::PixelTwoImagesOR()
+{
+	LoadTwoImages();
+	bitwise_or(inputImg, inputImg2, resultImg);
+}
+
+void CImageProHwangSeungHyeokDoc::PixelTwoImagesXOR()
+{
+	LoadTwoImages();
+	bitwise_xor(inputImg, inputImg2, resultImg);
+}
